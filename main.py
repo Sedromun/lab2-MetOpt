@@ -2,7 +2,7 @@ import numpy as np
 
 from gradient import FunctionNonConvergence
 from visualisation import *
-from nelder_mead import *
+from scipy_methods import *
 from d1_methods import *
 from coordinate_descent import *
 from random import randint as rand
@@ -26,6 +26,17 @@ def function_4(x, y):
 
 
 points = []
+
+
+# function from habr
+def rosen(x, y):
+    return 100.0 * (y - x ** 2.0) ** 2.0 + (1 - x) ** 2.0
+
+
+def rosen_jac(x, y):
+    m1 = -400.0 * x * (y - x ** 2.0) - 2 * (1 - x)
+    m2 = 200 * (y - x ** 2.0)
+    return [m1, m2]
 
 
 def logger(f: Callable[[float, float], float]) -> Callable[[float, float], float]:
@@ -65,6 +76,12 @@ def process_nelder_mead(func, start):
     draw(points, func, x, y, title="Nelder-Mead")
 
 
+def process_newton_cg(func, start):
+    x, y = newton_cg(logger(func), start, rosen_jac)
+    print("NEWTON-CG: ", x, y, " Value :=", func(x, y))
+    draw(points, func, x, y, title="Newton-CG")
+
+
 def process_coordinate_descent(func, start):
     x, y, c_points = coordinate_descent(func, 1, start)
     print("COORDINATE DESCENT: ", x, y, " Value :=", func(x, y))
@@ -79,13 +96,14 @@ def draw(dots, func, x, y, title: str = ""):
 
 
 def run(func, st_point):
-    process_gradient_descent(func, st_point)
-
-    process_d1_search_gradient(func, st_point)
-
-    process_nelder_mead(func, st_point)
-
-    process_coordinate_descent(func, st_point)
+    process_newton_cg(func, st_point)
+    # process_gradient_descent(func, st_point)
+    #
+    # process_d1_search_gradient(func, st_point)
+    #
+    # process_nelder_mead(func, st_point)
+    #
+    # process_coordinate_descent(func, st_point)
 
 
 if __name__ == '__main__':
