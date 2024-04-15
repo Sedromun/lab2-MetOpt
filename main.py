@@ -96,11 +96,15 @@ def process_nelder_mead(func, start):
     draw(points, func, x, y, title="Nelder-Mead")
 
 
-def process_newton_cg(func, start):
-    x, y = newton_cg(logger(func), start, rosen_jac, rosen_hess)
+def process_newton_cg(func, start, jac, hess):
+    x, y = newton_cg(logger(func), start, jac, hess)
     print("NEWTON-CG: ", x, y, " Value :=", func(x, y))
     draw(points, func, x, y, title="Newton-CG")
 
+def process_BFSG(func, start, jac):
+    x, y = BFSG(logger(func), start, jac)
+    print("BFSG: ", x, y, " Value :=", func(x, y))
+    draw(points, func, x, y, title="BFSG")
 
 def process_coordinate_descent(func, start):
     x, y, c_points = coordinate_descent(func, 1, start)
@@ -116,8 +120,10 @@ def draw(dots, func, x, y, title: str = ""):
 
 
 def run(func, st_point):
-    process_newton_cg(func, st_point)
-    process_newton(func, st_point)
+    process_newton_cg(func, st_point, rosen_jac, rosen_hess)
+
+    process_BFSG(func, st_point, rosen_jac)
+
     # process_gradient_descent(func, st_point)
     #
     # process_d1_search_gradient(func, st_point)
@@ -130,4 +136,4 @@ def run(func, st_point):
 if __name__ == '__main__':
     start_point = (rand(-8, 8), rand(-8, 8))
 
-    run(function, start_point)
+    run(rosen, start_point)
