@@ -1,5 +1,3 @@
-import numpy as np
-
 from gradient import FunctionNonConvergence
 from newton import Newton
 from visualisation import *
@@ -8,8 +6,6 @@ from d1_methods import *
 from coordinate_descent import *
 from random import randint as rand
 
-def ez_fn(x, y):
-    return x**2 + y**2
 
 def function_2(x, y):
     return -(x ** 2) + y ** 2 + (x ** 4) / 10
@@ -133,5 +129,5 @@ def run(func, st_point):
 
 if __name__ == '__main__':
     start_point = (rand(-8, 8), rand(-8, 8))
-    # start_point = (0.1, 0.1)
-    run(function_4, start_point)
+
+    run(function, start_point)

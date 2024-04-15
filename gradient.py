@@ -2,7 +2,9 @@ import math
 
 import numpy as np
 
-from config import learning_rate, epsilon, centre, arr_shape
+from config import learning_rate, epsilon
+
+from math_util import gradient
 
 
 class FunctionNonConvergence(Exception):
@@ -20,14 +22,6 @@ class Gradient:
     def rotate_vector(length, a):
         return length * np.cos(a), length * np.sin(a)
 
-    def derivative_x(self, x, y):
-        return (self.differentiable_function(epsilon + x, y) -
-                self.differentiable_function(x, y)) / epsilon
-
-    def derivative_y(self, x, y):
-        return (self.differentiable_function(x, y + epsilon) -
-                self.differentiable_function(x, y)) / epsilon
-
     @staticmethod
     def vector_length(vector):
         a, b = vector
@@ -44,10 +38,6 @@ class Gradient:
         x, y = vector
         return x * num, y * num
 
-    def gradient(self, vector):
-        x, y = vector
-        return self.derivative_x(x, y), self.derivative_y(x, y)
-
     def gradient_descent(self):
         while (len(self.points) < 2 or self.vector_length(
                 self.vectors_subtract(
@@ -55,7 +45,7 @@ class Gradient:
                     self.points[len(self.points) - 2]
                 )
         ) > epsilon):
-            grad = self.gradient(self.points[len(self.points) - 1])
+            grad = gradient(self.points[len(self.points) - 1], self.differentiable_function)
             self.points.append(
                 self.vectors_subtract(
                     self.points[len(self.points) - 1],
