@@ -1,5 +1,7 @@
 from config import epsilon
 
+gessian_epsilon = 0.00001  # with smaller epsilon gt overflow
+
 
 def derivative_x(x, y, f):
     return (f(epsilon + x, y) - f(x, y)) / epsilon
@@ -25,4 +27,10 @@ def second_derivative_y(x, y, f):
             2 * f(x, y + epsilon) +
             f(x, y)) / (epsilon * epsilon)
 
-# def jacobian(self, vector):
+
+def gessian(vector, f):
+    x, y = vector
+    return [[(f(x + gessian_epsilon, y) + f(x - gessian_epsilon, y) - 2 * f(x, y)) / (gessian_epsilon ** 2),
+             (f(x + gessian_epsilon, y + gessian_epsilon) - f(x + gessian_epsilon, y) - f(x, y + gessian_epsilon) + f(x, y)) / (gessian_epsilon ** 2)],
+            [(f(x + gessian_epsilon, y + gessian_epsilon) - f(x + gessian_epsilon, y) - f(x, y + gessian_epsilon) + f(x, y)) / (gessian_epsilon ** 2),
+             (f(x, y + gessian_epsilon) + f(x, y - gessian_epsilon) - 2 * f(x, y)) / (gessian_epsilon ** 2)]]

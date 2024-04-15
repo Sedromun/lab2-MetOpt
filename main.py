@@ -6,6 +6,8 @@ from d1_methods import *
 from coordinate_descent import *
 from random import randint as rand
 
+from math_util import gessian
+
 
 def function_2(x, y):
     return -(x ** 2) + y ** 2 + (x ** 4) / 10
@@ -37,6 +39,7 @@ def rosen_jac(x, y):
     m2 = 200 * (y - x ** 2.0)
     return [m1, m2]
 
+
 def rosen_hess(x, y):
     m11 = 1200.0 * x ** 2.0 - 400 * y + 2
     m12 = 0
@@ -52,6 +55,7 @@ def logger(f: Callable[[float, float], float]) -> Callable[[float, float], float
         return f(x, y)
 
     return foo
+
 
 def process_newton(func, start):
     newton = Newton(func, start_point=start)
@@ -136,4 +140,10 @@ def run(func, st_point):
 if __name__ == '__main__':
     start_point = (rand(-8, 8), rand(-8, 8))
 
-    run(rosen, start_point)
+    # run(function, start_point)
+
+    print(gessian(start_point, lambda x, y: x ** 3 * y + y ** 2 * x))
+
+    x, y = start_point
+
+    print([[6 * x * y, 3 * x ** 2 + 2 * y], [3 * x ** 2 + 2 * y, 2 * x]])
