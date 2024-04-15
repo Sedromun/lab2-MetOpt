@@ -38,6 +38,14 @@ def rosen_jac(x, y):
     m2 = 200 * (y - x ** 2.0)
     return [m1, m2]
 
+def rosen_hess(x, y):
+    m11 = 1200.0 * x ** 2.0 - 400 * y + 2
+    m12 = 0
+    m21 = 0
+    m22 = 200 * y
+    return [[m11, m12],
+            [m21, m22]]
+
 
 def logger(f: Callable[[float, float], float]) -> Callable[[float, float], float]:
     def foo(x: float, y: float) -> float:
@@ -77,7 +85,7 @@ def process_nelder_mead(func, start):
 
 
 def process_newton_cg(func, start):
-    x, y = newton_cg(logger(func), start, rosen_jac)
+    x, y = newton_cg(logger(func), start, rosen_jac, rosen_hess)
     print("NEWTON-CG: ", x, y, " Value :=", func(x, y))
     draw(points, func, x, y, title="Newton-CG")
 
