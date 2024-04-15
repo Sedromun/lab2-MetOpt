@@ -1,12 +1,15 @@
 import numpy as np
 
 from gradient import FunctionNonConvergence
+from newton import Newton
 from visualisation import *
 from scipy_methods import *
 from d1_methods import *
 from coordinate_descent import *
 from random import randint as rand
 
+def ez_fn(x, y):
+    return x**2 + y**2
 
 def function_2(x, y):
     return -(x ** 2) + y ** 2 + (x ** 4) / 10
@@ -53,6 +56,19 @@ def logger(f: Callable[[float, float], float]) -> Callable[[float, float], float
         return f(x, y)
 
     return foo
+
+def process_newton(func, start):
+    newton = Newton(func, start_point=start)
+    print(1)
+    try:
+        x, y = newton.find_minimum()
+    except FunctionNonConvergence:
+        print('ERROR start point: ', start)
+    except Exception as e:
+        print('ERROR start point: ', start, " Error:", e)
+    else:
+        print("NEWTON's METHOD: ", x, y, " Value :=", func(x, y))
+        draw(newton.points, func, x, y, title="Newton's Method")
 
 
 def process_gradient_descent(func, start):
@@ -105,6 +121,7 @@ def draw(dots, func, x, y, title: str = ""):
 
 def run(func, st_point):
     process_newton_cg(func, st_point)
+    process_newton(func, st_point)
     # process_gradient_descent(func, st_point)
     #
     # process_d1_search_gradient(func, st_point)
@@ -116,5 +133,5 @@ def run(func, st_point):
 
 if __name__ == '__main__':
     start_point = (rand(-8, 8), rand(-8, 8))
-
-    run(function, start_point)
+    # start_point = (0.1, 0.1)
+    run(function_4, start_point)
