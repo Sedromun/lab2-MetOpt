@@ -29,14 +29,9 @@ def newton_cg(f, start_point):
     return res.x[0], res.x[1]
 
 
-# квазиньютоновский 1
 def BFSG(f, start_point):
     def scipy_f(x):
         return f(x[0], x[1])
 
-    def scipy_j(x):
-        a, b = gradient(x, f)
-        return [a, b]
-
-    res = scipy.optimize.minimize(scipy_f, start_point, method='BFGS', jac=scipy_j)
+    res = scipy.optimize.minimize(scipy_f, start_point, method='BFGS')
     return res.x[0], res.x[1]
