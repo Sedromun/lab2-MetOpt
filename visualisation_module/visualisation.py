@@ -29,7 +29,7 @@ def draw_chart(
     ax = plt.figure().add_subplot(111, projection='3d')
     ax.scatter(point_x, point_y, point_z, color='red')
     ax.plot_surface(grid_x, grid_y, grid_z, rstride=5, cstride=5, alpha=0.7)
-    plt.title(f'Method: {title}\nFunction: {function.str_value}')
+    plt.title(f'Method: {title}\nFunction: {function.name}')
     plt.show(block=True)
 
 
@@ -45,7 +45,7 @@ def draw_graphic(
              points])  # Plot some data on the axes.
     ax.set_xlabel('Iterations')
     ax.set_ylabel('log[ f(P_i) - f(P_n) + 1 ]')
-    plt.title(f'Method: {title}\nFunction: {function.str_value}')
+    plt.title(f'Method: {title}\nFunction: {function.name}')
     plt.show()
 
 
@@ -79,7 +79,7 @@ def draw_graphic_2(
     )
     ax.set_xlabel('Distance from start point')
     ax.set_ylabel('Value in point')
-    plt.title(f'Method: {title}\nFunction: {function.str_value}')
+    plt.title(f'Method: {title}\nFunction: {function.name}')
     plt.show()
 
 
@@ -111,7 +111,7 @@ def draw_isolines(
     #                  marker='o', color='b', markersize=3, linestyle='-', linewidth=1)
 
     plt.plot(points[0][0], points[0][1], marker='o', color='g', markersize=10)  # Стартовая точка
-    plt.title(f'Method: {title}\nFunction: {function.str_value}')
+    plt.title(f'Method: {title}\nFunction: {function.name}')
     plt.xlabel('x')
     plt.ylabel('y')
     plt.show()
