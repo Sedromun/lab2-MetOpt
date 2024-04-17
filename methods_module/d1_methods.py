@@ -1,17 +1,17 @@
 # вычисляет минимум на отрезке [a, b] с точностью epsilon для унимодальных функций
-from config import learning_rate
+from config import gradient_learning_rate
 
 
-def calc_learning_rate(f, x, direction):
+def calc_learning_rate(f, x, direction, max_learning_rate):
     def g(t: float):
         vector = x - t * direction
         return f(vector[0], vector[1])
 
-    return dichotomy_method(g, 0, learning_rate)
+    return dichotomy_method(g, 0, max_learning_rate)
 
 
 def dichotomy_method(f, a, b):
-    epsilon = 0.0001
+    epsilon = 0.001
     if f(a) * f(b) > 0:
         return b
 
