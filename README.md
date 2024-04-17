@@ -10,7 +10,7 @@
 <img src=https://memepedia.ru/wp-content/uploads/2023/03/igor-gofman-7-8-odezhda-mem-4.png>
 
 
-Лабораторная работа №1: Методы нулевого порядка
+Лабораторная работа №2: Методы Ньютона
 
 Артемьев Иван (Backend Python senior)
 
