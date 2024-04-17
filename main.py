@@ -1,5 +1,6 @@
 from typing import Callable
 
+from math_module.functions import functions
 from methods_module.gradient import FunctionNonConvergence, gradient_descent
 from methods_module.newton import newton
 from visualisation_module.statistic import sub_stat
@@ -23,22 +24,19 @@ def logger(f: Callable[[float, float], float]) -> Callable[[float, float], float
 
 def process_newton(func, start):
     try:
-        newton_points = newton(func.f, start_point=start, calc_learning_rate=(lambda a, b, c: 1))
-        x, y = newton_points[-1]
+        x, y = newton(func.f, start_point=start, calc_learning_rate=(lambda a, b, c, d: 1))
     except FunctionNonConvergence:
         print('ERROR start point: ', start)
     except Exception as e:
         print('ERROR start point: ', start, " Error:", e)
     else:
         print("NEWTON's METHOD: ", x, y, " Value :=", func.f(x, y))
-        draw(newton_points, func, x, y, title="Newton's Method")
+        # draw(newton_points, func, x, y, title="Newton's Method")
 
 
 def process_d1_search_newton(func, start):
     try:
-        newton_points = newton(func.f, start_point=start, calc_learning_rate=calc_learning_rate)
-        x, y = newton_points[-1]
-        print(newton_points)
+        x, y = newton(func.f, start_point=start, calc_learning_rate=calc_learning_rate)
     except FunctionNonConvergence:
         print('ERROR start point: ', start)
     except Exception as e:
@@ -46,7 +44,7 @@ def process_d1_search_newton(func, start):
         raise e
     else:
         print("NEWTON's METHOD WITH D1 OPTIMIZATION: ", x, y, " Value :=", func.f(x, y))
-        draw(newton_points, func, x, y, title="Newton's Method with D1 optimization")
+        # draw(newton_points, func, x, y, title="Newton's Method with D1 optimization")
 
 
 def process_gradient_descent(func, start):
@@ -117,6 +115,6 @@ def stat():
 if __name__ == '__main__':
     start_point = (rand(-8, 8), rand(-8, 8))
 
-    # process_nelder_mead(functions[3], start_point)  # Sample of work
+    process_d1_search_newton(functions[0], start_point)  # Sample of work
 
-    stat()
+    # stat()
