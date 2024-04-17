@@ -58,3 +58,12 @@ functions = [
         is_infinium=lambda x, y: near(x, y, [(1, 1)])
     )
 ]
+
+#     def foo(x, y):
+#         return x ** 3 * y + y ** 2 * x
+#
+#     print(gessian(start_point, foo))
+#
+#     x, y = start_point
+#
+#     print([[6 * x * y, 3 * x ** 2 + 2 * y], [3 * x ** 2 + 2 * y, 2 * x]])

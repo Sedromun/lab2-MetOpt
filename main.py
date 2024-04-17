@@ -1,5 +1,3 @@
-import numpy
-
 from methods_module.gradient import FunctionNonConvergence
 from methods_module.newton import Newton
 from visualisation_module.visualisation import *
@@ -7,26 +5,7 @@ from methods_module.scipy_methods import *
 from methods_module.d1_methods import *
 from methods_module.coordinate_descent import *
 from random import randint as rand
-
-from math_module.math_util import gessian
-
-
-def function_2(x, y):
-    return -(x ** 2) + y ** 2 + (x ** 4) / 10
-    # infinums: [2.23606, 0] := -2.5, [-2.23606, 0] := -2.5, [0, 0] := 0
-
-
-def function(x, y):
-    return -(x ** 2) - (y ** 2) + (x ** 4) / 10 + (y ** 4) / 20 + y + 2 * x
-
-
-def function_3(x, y):
-    return -np.exp(-(x ** 2) - (y ** 2))
-
-
-def function_4(x, y):
-    return np.abs(x + y) + 3 * np.abs(y - x)
-
+from math_module.functions import functions
 
 points = []
 
@@ -144,20 +123,4 @@ def run(func, st_point):
 if __name__ == '__main__':
     start_point = (rand(-8, 8), rand(-8, 8))
 
-    # run(function, start_point)
-
-    # def foo(x, y) -> numpy.float64:
-    #     return x ** 3 * y + y ** 2 * x
-    #
-    # print(gessian(start_point, foo))
-    #
-    # x, y = start_point
-    #
-    # print([[6 * x * y, 3 * x ** 2 + 2 * y], [3 * x ** 2 + 2 * y, 2 * x]])
-
-    # x, y = nelder_mead(function, start_point)
-    # print((x, y))
-    # print(function(x, y))
-
-    process_nelder_mead(function_3, start_point)
-
+    run(functions[0], start_point)  # TODO
