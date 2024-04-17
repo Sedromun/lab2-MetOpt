@@ -14,13 +14,13 @@
 
 Артемьев Иван (Backend Python senior)
 
-<img width="600" alt="image" src=https://github.com/Sedromun/lab1-MetOpt/assets/116313637/f479ed07-927f-4e0e-8012-0fedd28236b7>
-
+<img width="600" alt="image" src=https://github.com/Sedromun/lab2-MetOpt/assets/73930190/09c23bbf-0339-402b-bd4b-9ba802e9e5ae>
 
 Никитин Михаил (Frontend Python, analysyst)
 
-<img width="400" alt="image" src=https://github.com/Sedromun/lab1-MetOpt/assets/116313637/5e89f0ce-5bd4-442d-8457-6a30e0c2ebb6>
+<img width="400" alt="image" src=https://github.com/Sedromun/lab2-MetOpt/assets/73930190/edb90250-64ca-4522-aee3-0f68154d4b8a>
 
 Павлов Евгений (Backend Python intern, java middle)
 
-<img width="436" alt="image" src="https://github.com/Sedromun/lab1-MetOpt/assets/85906673/78f17baa-9ca9-4265-bc81-3705f3ab0989">
+<img width="436" alt="image" src="https://github.com/Sedromun/lab2-MetOpt/assets/73930190/dc947043-b1e1-4a78-beda-e6a376c25be9">
+
