@@ -1,7 +1,8 @@
 from config import epsilon
 
 
-def coordinate_descent(f, step, start_point):
+def coordinate_descent(f, start_point):
+    step = 1
     stopped = 0
     x = start_point[0]
     y = start_point[1]
