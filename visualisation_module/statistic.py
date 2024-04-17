@@ -45,10 +45,11 @@ headers = ["Function", "Attempts", "Success", "Semi-success", "Incorrect", "Erro
 
 
 def sub_stat(method, name):
-    print(name)
     results = []
+    t = 0
     for func in functions:
         a, s, ss, e, c, t = stat_method(method, func)
-        results.append((func.name, a, s, ss, a - s - ss, e, c / a, (t / (a - e) if a > e else "-")))
+        results.append((func.name, a, s, ss, a - s - ss, e, c / a, (str(round(1000 * t / (a - e), 2)) + " ms" if a > e else "-")))
+    print(f"{name}; time = {1000*t:.2f} ms")
     print(tabulate(results, headers=headers))
     print("\n\n\n")

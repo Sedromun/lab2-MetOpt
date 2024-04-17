@@ -1,6 +1,7 @@
 from typing import Callable
 
 from methods_module.gradient import FunctionNonConvergence, gradient_descent
+from methods_module.my_bfgs import my_bfgs
 from methods_module.newton import newton
 from visualisation_module.statistic import sub_stat
 from visualisation_module.visualisation import *
@@ -8,7 +9,6 @@ from methods_module.scipy_methods import *
 from methods_module.d1_methods import *
 from methods_module.coordinate_descent import *
 from random import randint as rand
-from math_module.functions import functions
 
 points = []
 
@@ -122,9 +122,16 @@ def draw(dots, func, x, y, title: str = ""):
 
 
 def stat():
-    sub_stat(newton, "NEWTON")
-    sub_stat(nelder_mead, "NELDER MEAD")
+    sub_stat(gradient_descent, "GRADIENT DESCENT")
+    sub_stat(lambda f, p: gradient_descent(f, p, calc_learning_rate), "GRADIENT DESCENT D1")
     sub_stat(coordinate_descent, "COORDINATE DESCENT")
+    sub_stat(nelder_mead, "NELDER MEAD")
+
+    sub_stat(newton, "NEWTON")
+    sub_stat(lambda f, p: newton(f, p, calc_learning_rate), "NEWTON WITH D1 OPTIMIZATION")
+    sub_stat(newton_cg, "NEWTON-CG")
+    sub_stat(my_bfgs, "JEKA's BFSG")
+    sub_stat(BFSG, "BFSG")
 
 
 def run(func, st_point):
