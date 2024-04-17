@@ -9,6 +9,10 @@ from methods_module.scipy_methods import *
 from methods_module.d1_methods import *
 from methods_module.coordinate_descent import *
 from random import randint as rand
+from math_module.functions import functions
+from tabulate import tabulate
+from methods_module.my_bfgs import my_bfgs
+import time
 
 points = []
 
@@ -132,6 +136,7 @@ def stat():
     sub_stat(newton_cg, "NEWTON-CG")
     sub_stat(my_bfgs, "JEKA's BFSG")
     sub_stat(BFSG, "BFSG")
+
 
 
 def run(func, st_point):
