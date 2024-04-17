@@ -13,26 +13,6 @@ from methods_module.my_bfgs import my_bfgs
 points = []
 
 
-# function from habr
-def rosen(x, y):
-    return 100.0 * (y - x ** 2.0) ** 2.0 + (1 - x) ** 2.0
-
-
-def rosen_jac(x, y):
-    m1 = -400.0 * x * (y - x ** 2.0) - 2 * (1 - x)
-    m2 = 200 * (y - x ** 2.0)
-    return [m1, m2]
-
-
-def rosen_hess(x, y):
-    m11 = 1200.0 * x ** 2.0 - 400 * y + 2
-    m12 = 0
-    m21 = 0
-    m22 = 200 * y
-    return [[m11, m12],
-            [m21, m22]]
-
-
 def logger(f: Callable[[float, float], float]) -> Callable[[float, float], float]:
     def foo(x: float, y: float) -> float:
         points.append((x, y))
