@@ -1,7 +1,7 @@
 from typing import Callable
 
-from methods_module.gradient import FunctionNonConvergence
-from methods_module.newton import Newton
+from methods_module.gradient import FunctionNonConvergence, gradient_descent
+from methods_module.newton import newton
 from visualisation_module.visualisation import *
 from methods_module.scipy_methods import *
 from methods_module.d1_methods import *
@@ -64,38 +64,53 @@ def stat_method(
 
 
 def process_newton(func, start):
-    newton = Newton(func.f, start_point=start)
     try:
-        x, y = newton.find_minimum()
+        newton_points = newton(func.f, start_point=start, calc_learning_rate=(lambda a, b, c: 1))
+        x, y = newton_points[-1]
     except FunctionNonConvergence:
         print('ERROR start point: ', start)
     except Exception as e:
         print('ERROR start point: ', start, " Error:", e)
     else:
         print("NEWTON's METHOD: ", x, y, " Value :=", func.f(x, y))
-        draw(newton.points, func.f, x, y, title="Newton's Method")
+        draw(newton_points, func, x, y, title="Newton's Method")
+
+
+def process_d1_search_newton(func, start):
+    try:
+        newton_points = newton(func.f, start_point=start, calc_learning_rate=calc_learning_rate)
+        x, y = newton_points[-1]
+        print(newton_points)
+    except FunctionNonConvergence:
+        print('ERROR start point: ', start)
+    except Exception as e:
+        print('ERROR start point: ', start, " Error:", e)
+        raise e
+    else:
+        print("NEWTON's METHOD WITH D1 OPTIMIZATION: ", x, y, " Value :=", func.f(x, y))
+        draw(newton_points, func, x, y, title="Newton's Method with D1 optimization")
 
 
 def process_gradient_descent(func, start):
-    grad = Gradient(func, start_point=start)
     try:
-        x, y = grad.find_minimum()
+        gradient_points = gradient_descent(func.f, start_point=start)
+        x, y = gradient_points[-1]
     except FunctionNonConvergence:
         print('ERROR start point: ', start)
     else:
-        print("GRADIENT DESCENT: ", x, y, " Value :=", func(x, y))
-        draw(grad.points, func, x, y, title="Gradient Descent")
+        print("GRADIENT DESCENT: ", x, y, " Value :=", func.f(x, y))
+        draw(gradient_points, func, x, y, title="Gradient Descent")
 
 
 def process_d1_search_gradient(func, start):
-    grad = Gradient(func, start_point=start, calc_learning_rate=calc_learning_rate)
     try:
-        x, y = grad.find_minimum()
+        gradient_points = gradient_descent(func, start_point=start, calc_learning_rate=calc_learning_rate)
+        x, y = gradient_points[-1]
     except FunctionNonConvergence:
         print('ERROR start point: ', start)
     else:
         print("GRADIENT DESCENT WITH D1 OPTIMIZATION: ", x, y, " Value :=", func(x, y))
-        draw(grad.points, func, x, y, title="Gradient Descent with D1 optimization")
+        draw(gradient_points, func, x, y, title="Gradient Descent with D1 optimization")
 
 
 def process_nelder_mead(func, start):
@@ -117,7 +132,7 @@ def process_BFSG(func, start, jac):
 
 
 def process_coordinate_descent(func, start):
-    x, y, c_points = coordinate_descent(func, 1, start)
+    x, y, c_points = coordinate_descent(func, start)
     print("COORDINATE DESCENT: ", x, y, " Value :=", func(x, y))
     draw(c_points, func, x, y, title="Coordinate Descent")
 
