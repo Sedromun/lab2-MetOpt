@@ -4,7 +4,7 @@ import numpy as np
 
 from config import learning_rate, epsilon
 
-from math_util import gradient
+from math_module.math_util import gradient
 
 
 class FunctionNonConvergence(Exception):

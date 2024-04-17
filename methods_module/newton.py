@@ -1,10 +1,7 @@
-import math
-
 import numpy as np
 
-from config import epsilon
-from gradient import FunctionNonConvergence, Gradient
-from math_util import *
+from methods_module.gradient import FunctionNonConvergence, Gradient
+from math_module.math_util import *
 
 
 class Newton:

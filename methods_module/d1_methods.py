@@ -1,6 +1,6 @@
 # вычисляет минимум на отрезке [a, b] с точностью epsilon для унимодальных функций
 from config import epsilon, learning_rate
-from gradient import Gradient
+from methods_module.gradient import Gradient
 
 
 def calc_learning_rate(f, x: tuple, gradient: tuple):

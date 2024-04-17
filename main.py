@@ -1,12 +1,14 @@
-from gradient import FunctionNonConvergence
-from newton import Newton
-from visualisation import *
-from scipy_methods import *
-from d1_methods import *
-from coordinate_descent import *
+import numpy
+
+from methods_module.gradient import FunctionNonConvergence
+from methods_module.newton import Newton
+from visualisation_module.visualisation import *
+from methods_module.scipy_methods import *
+from methods_module.d1_methods import *
+from methods_module.coordinate_descent import *
 from random import randint as rand
 
-from math_util import gessian
+from math_module.math_util import gessian
 
 
 def function_2(x, y):
@@ -105,10 +107,12 @@ def process_newton_cg(func, start, jac, hess):
     print("NEWTON-CG: ", x, y, " Value :=", func(x, y))
     draw(points, func, x, y, title="Newton-CG")
 
+
 def process_BFSG(func, start, jac):
     x, y = BFSG(logger(func), start, jac)
     print("BFSG: ", x, y, " Value :=", func(x, y))
     draw(points, func, x, y, title="BFSG")
+
 
 def process_coordinate_descent(func, start):
     x, y, c_points = coordinate_descent(func, 1, start)
@@ -142,7 +146,10 @@ if __name__ == '__main__':
 
     # run(function, start_point)
 
-    print(gessian(start_point, lambda x, y: x ** 3 * y + y ** 2 * x))
+    def foo(x, y) -> numpy.float64:
+        return x ** 3 * y + y ** 2 * x
+
+    print(gessian(start_point, foo))
 
     x, y = start_point
 
