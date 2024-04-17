@@ -71,13 +71,12 @@ def process_d1_search_newton(func, start):
 
 def process_gradient_descent(func, start):
     try:
-        gradient_points = gradient_descent(func.f, start_point=start)
-        x, y = gradient_points[-1]
+        x, y = gradient_descent(func.f, start_point=start)
     except FunctionNonConvergence:
         print('ERROR start point: ', start)
     else:
         print("GRADIENT DESCENT: ", x, y, " Value :=", func.f(x, y))
-        draw(gradient_points, func, x, y, title="Gradient Descent")
+        # draw(gradient_points, func, x, y, title="Gradient Descent")
 
 
 def process_d1_search_gradient(func, start):

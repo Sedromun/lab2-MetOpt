@@ -7,7 +7,6 @@ def coordinate_descent(f, start_point):
     x = start_point[0]
     y = start_point[1]
     current = f(x, y)
-    points = []
 
     while step > epsilon:
         current_plus = f(x + step, y)
@@ -16,12 +15,10 @@ def coordinate_descent(f, start_point):
             current = current_plus
             x += step
             stopped = 0
-            points.append((x, y))
         elif current > f(x - step, y):
             current = current_minus
             x -= step
             stopped = 0
-            points.append((x, y))
         else:
             stopped += 1
 
@@ -37,12 +34,10 @@ def coordinate_descent(f, start_point):
             current = current_plus
             y += step
             stopped = 0
-            points.append((x, y))
         elif current > current_minus:
             current = current_minus
             y -= step
             stopped = 0
-            points.append((x, y))
         else:
             stopped += 1
 
