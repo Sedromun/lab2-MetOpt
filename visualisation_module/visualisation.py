@@ -93,7 +93,7 @@ def draw_isolines(
     plt.figure(figsize=(8, 6))
     min_x = points[-1][0]
     min_y = points[-1][1]
-    grid_x, grid_y, grid_z = get_grid(lambda x, y: function(x, y) + 2.5 + 1, grid_step, radius)  # function(min_x, min_y)
+    grid_x, grid_y, grid_z = get_grid(lambda x, y: function(x, y) - function(min_x, min_y) + 1.01, grid_step, radius)  # function(min_x, min_y)
     plt.contour(grid_x, grid_y, grid_z,
                 levels=np.logspace(-0.5, 3.5, radius * 3),
                 cmap='gray')

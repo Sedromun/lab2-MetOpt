@@ -146,11 +146,18 @@ if __name__ == '__main__':
 
     # run(function, start_point)
 
-    def foo(x, y) -> numpy.float64:
-        return x ** 3 * y + y ** 2 * x
+    # def foo(x, y) -> numpy.float64:
+    #     return x ** 3 * y + y ** 2 * x
+    #
+    # print(gessian(start_point, foo))
+    #
+    # x, y = start_point
+    #
+    # print([[6 * x * y, 3 * x ** 2 + 2 * y], [3 * x ** 2 + 2 * y, 2 * x]])
 
-    print(gessian(start_point, foo))
+    # x, y = nelder_mead(function, start_point)
+    # print((x, y))
+    # print(function(x, y))
 
-    x, y = start_point
+    process_nelder_mead(function_3, start_point)
 
-    print([[6 * x * y, 3 * x ** 2 + 2 * y], [3 * x ** 2 + 2 * y, 2 * x]])
