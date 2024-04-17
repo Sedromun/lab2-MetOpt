@@ -9,6 +9,7 @@ from methods_module.coordinate_descent import *
 from random import randint as rand
 from math_module.functions import functions
 from tabulate import tabulate
+from methods_module import my_bfgs
 import time
 
 points = []
@@ -172,10 +173,12 @@ def sub_stat(method, name):
 
 
 def stat():
-    sub_stat(newton, "NEWTON")
+    sub_stat(newton, "MY NEWTON")
     sub_stat(nelder_mead, "NELDER MEAD")
     sub_stat(coordinate_descent, "COORDINATE DESCENT")
-
+    sub_stat(BFSG, "LIB BFSG")
+    sub_stat(my_bfgs, "MY BFSG")
+    sub_stat(newton_cg, "LIB NEWTON")
 
 def run(func, st_point):
     process_newton_cg(func, st_point, rosen_jac, rosen_hess)
