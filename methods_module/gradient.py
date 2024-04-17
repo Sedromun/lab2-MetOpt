@@ -17,6 +17,6 @@ def gradient_descent(func, start_point=None, calc_learning_rate=(lambda x, y, z:
         points.append(points[-1] -
                       calc_learning_rate(func, points[-1], grad) *
                       grad)
-        if len(points) > 100000 or abs(points[-1][0]) > 10000000 or abs(points[-1][1]) > 10000000:
+        if len(points) > 1000 or abs(points[-1][0]) > 10000000 or abs(points[-1][1]) > 10000000:
             raise FunctionNonConvergence()
-    return points
+    return points[-1]

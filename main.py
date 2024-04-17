@@ -107,13 +107,12 @@ def process_d1_search_newton(func, start):
 
 def process_gradient_descent(func, start):
     try:
-        gradient_points = gradient_descent(func.f, start_point=start)
-        x, y = gradient_points[-1]
+        x, y = gradient_descent(func.f, start_point=start)
     except FunctionNonConvergence:
         print('ERROR start point: ', start)
     else:
         print("GRADIENT DESCENT: ", x, y, " Value :=", func.f(x, y))
-        draw(gradient_points, func, x, y, title="Gradient Descent")
+        # draw(gradient_points, func, x, y, title="Gradient Descent")
 
 
 def process_d1_search_gradient(func, start):
@@ -167,18 +166,22 @@ def sub_stat(method, name):
     results = []
     for func in functions:
         a, s, ss, e, c, t = stat_method(method, func)
-        results.append((func.name, a, s, ss, a - s - ss, e, c / a, (t / (a - e) if a > e else "-")))
+        results.append((func.name, a, s + ss, ss, a - s - ss, e, c / a, (t / (a - e) if a > e else "-")))
     print(tabulate(results, headers=headers))
     print("\n\n\n")
 
 
 def stat():
-    sub_stat(newton, "MY NEWTON")
     sub_stat(nelder_mead, "NELDER MEAD")
     sub_stat(coordinate_descent, "COORDINATE DESCENT")
-    sub_stat(BFSG, "LIB BFSG")
-    sub_stat(my_bfgs, "MY BFSG")
-    sub_stat(newton_cg, "LIB NEWTON")
+    sub_stat(gradient_descent, "GRADIENT DESCENT")
+    sub_stat(lambda f, p: gradient_descent(f, p, calc_learning_rate), "GRADIENT DESCENT WITH D1 OPTIMIZATION")
+    sub_stat(newton, "NEWTON")
+    sub_stat(lambda f, p: newton(f, p, calc_learning_rate), "NEWTON WITH D1 OPTIMIZATION")
+    sub_stat(BFSG, "BFSG")
+    sub_stat(newton_cg, "NEWTON-CG")
+
+
 
 def run(func, st_point):
     process_newton_cg(func, st_point, rosen_jac, rosen_hess)
@@ -206,7 +209,7 @@ if __name__ == '__main__':
     # DO NOT DELETE
     # DO NOT DELETE
     # DO NOT DELETE
-    # process_nelder_mead(functions[3], start_point)  # Sample of work
+    # process_gradient_descent(functions[0], start_point)  # Sample of work
 
     stat()
 
