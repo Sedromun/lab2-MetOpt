@@ -1,6 +1,7 @@
 import numpy as np
 import numpy.linalg as ln
 import scipy
+import warnings
 from math_module.math_util import gradient
 
 from math_module.math_util import gessian
@@ -9,6 +10,7 @@ from config import epsilon
 
 
 def my_bfgs(f1, x0):
+    warnings.filterwarnings("ignore")
     def fprime(x):
         a1, b1 = gradient(x, f1)
         return np.array([a1, b1])
@@ -33,7 +35,7 @@ def my_bfgs(f1, x0):
         # line_search returns not only alpha
         # but only this value is interesting for us
 
-        line_search = scipy.optimize.line_search(f, fprime, xk, pk)
+        line_search = scipy.optimize.line_search(f, fprime, xk, pk, maxiter=10000000)
         alpha_k = line_search[0]
         xkp1 = xk + alpha_k * pk
         sk = xkp1 - xk
