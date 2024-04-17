@@ -50,4 +50,4 @@ def coordinate_descent(f, start_point):
             step /= 2
             stopped = 0
 
-    return x, y, points
+    return x, y

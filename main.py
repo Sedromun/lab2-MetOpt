@@ -2,14 +2,13 @@ from typing import Callable
 
 from methods_module.gradient import FunctionNonConvergence, gradient_descent
 from methods_module.newton import newton
+from visualisation_module.statistic import sub_stat
 from visualisation_module.visualisation import *
 from methods_module.scipy_methods import *
 from methods_module.d1_methods import *
 from methods_module.coordinate_descent import *
 from random import randint as rand
 from math_module.functions import functions
-from tabulate import tabulate
-import time
 
 points = []
 
@@ -40,40 +39,6 @@ def logger(f: Callable[[float, float], float]) -> Callable[[float, float], float
         return f(x, y)
 
     return foo
-
-
-def stat_method(
-        method: Callable[[Callable[[float, float], float], tuple[float, float]], tuple[float, float]],
-        func: FuncWrapper,
-):
-    attempts, success, semi_success, errors, call = 100, 0, 0, 0, 0
-
-    elapsed_time = 0
-
-    def wrap(x, y):
-        nonlocal call
-        call += 1
-        return func.f(x, y)
-
-    for _ in range(attempts):
-        start = (rand(-8, 8), rand(-8, 8))
-        try:
-            start_time = time.time()
-            x, y = method(wrap, start)
-            end_time = time.time()
-        except Exception:
-            errors += 1
-            # print(f"ERROR, func={func.name}")
-        else:
-            elapsed_time += end_time - start_time
-            if abs(func.f(x, y) - func.min) < 0.001:
-                success += 1
-            elif func.is_infimum(x, y):
-                semi_success += 1
-            # else:
-            # print(f"FUNC={func.name}, x={x}, y={y}, value={func.f(x, y)}, min={func.min}")
-
-    return attempts, success, semi_success, errors, call, elapsed_time
 
 
 def process_newton(func, start):
@@ -155,20 +120,6 @@ def draw(dots, func, x, y, title: str = ""):
     draw_graphic_2(dots, func, title=title)
     draw_isolines(dots, func, title=title)
     draw_chart(func, (x, y), title=title)
-
-
-headers = ["Function", "Attempts", "Success", "Semi-success", "Incorrect", "Errors", "Average func calls",
-           "Average time"]
-
-
-def sub_stat(method, name):
-    print(name)
-    results = []
-    for func in functions:
-        a, s, ss, e, c, t = stat_method(method, func)
-        results.append((func.name, a, s, ss, a - s - ss, e, c / a, (t / (a - e) if a > e else "-")))
-    print(tabulate(results, headers=headers))
-    print("\n\n\n")
 
 
 def stat():
