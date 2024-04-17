@@ -134,7 +134,6 @@ def stat():
     sub_stat(BFSG, "BFSG")
 
 
-
 if __name__ == '__main__':
     start_point = (rand(-8, 8), rand(-8, 8))
 
