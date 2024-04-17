@@ -1,3 +1,5 @@
+from typing import Callable
+
 from methods_module.gradient import FunctionNonConvergence
 from methods_module.newton import Newton
 from visualisation_module.visualisation import *
@@ -76,19 +78,19 @@ def process_d1_search_gradient(func, start):
 
 
 def process_nelder_mead(func, start):
-    x, y = nelder_mead(logger(func), start)
-    print("NELDER-MEAD: ", x, y, " Value :=", func(x, y))
+    x, y = nelder_mead(logger(func.f), start)
+    print("NELDER-MEAD: ", x, y, " Value :=", func.f(x, y))
     draw(points, func, x, y, title="Nelder-Mead")
 
 
 def process_newton_cg(func, start, jac, hess):
-    x, y = newton_cg(logger(func), start, jac, hess)
+    x, y = newton_cg(logger(func.f), start, jac, hess)
     print("NEWTON-CG: ", x, y, " Value :=", func(x, y))
     draw(points, func, x, y, title="Newton-CG")
 
 
 def process_BFSG(func, start, jac):
-    x, y = BFSG(logger(func), start, jac)
+    x, y = BFSG(logger(func.f), start, jac)
     print("BFSG: ", x, y, " Value :=", func(x, y))
     draw(points, func, x, y, title="BFSG")
 
@@ -123,4 +125,15 @@ def run(func, st_point):
 if __name__ == '__main__':
     start_point = (rand(-8, 8), rand(-8, 8))
 
-    run(functions[0], start_point)  # TODO
+    # DO NOT DELETE
+    # DO NOT DELETE
+    # DO NOT DELETE
+    # DO NOT DELETE
+    # DO NOT DELETE
+    # DO NOT DELETE
+    # DO NOT DELETE
+    # DO NOT DELETE
+    # DO NOT DELETE
+    process_nelder_mead(functions[3], start_point)  # Sample of work
+
+    # run(functions[0], start_point)  # TODO
