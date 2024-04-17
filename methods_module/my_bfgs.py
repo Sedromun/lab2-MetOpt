@@ -36,7 +36,6 @@ def my_bfgs(f1, x0):
         line_search = scipy.optimize.line_search(f, fprime, xk, pk)
         alpha_k = line_search[0]
         xkp1 = xk + alpha_k * pk
-        print(xkp1)
         sk = xkp1 - xk
         xk = xkp1
 

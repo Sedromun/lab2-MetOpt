@@ -59,10 +59,10 @@ functions = [
     ),
     FuncWrapper(
         f=lambda x, y: x**2 - x*y + y**2 + 9*x - 6*y + 20,
-        name="Penis",
-        min=0,
+        name="Menya vse doljni ebat",
+        min=-1,
         logarithmic=True,
-        is_infimum=lambda x, y: near(x, y, [(1, 1)])
+        is_infimum=lambda x, y: near(x, y, [(-4, 1)])
     )
 ]
 
