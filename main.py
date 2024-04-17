@@ -1,7 +1,6 @@
 from typing import Callable
 
 from methods_module.gradient import FunctionNonConvergence, gradient_descent
-from methods_module.my_bfgs import my_bfgs
 from methods_module.newton import newton
 from visualisation_module.statistic import sub_stat
 from visualisation_module.visualisation import *
@@ -9,10 +8,7 @@ from methods_module.scipy_methods import *
 from methods_module.d1_methods import *
 from methods_module.coordinate_descent import *
 from random import randint as rand
-from math_module.functions import functions
-from tabulate import tabulate
 from methods_module.my_bfgs import my_bfgs
-import time
 
 points = []
 
@@ -139,34 +135,9 @@ def stat():
 
 
 
-def run(func, st_point):
-    process_newton_cg(func, st_point, rosen_jac, rosen_hess)
-
-    process_BFSG(func, st_point, rosen_jac)
-
-    # process_gradient_descent(func, st_point)
-    #
-    # process_d1_search_gradient(func, st_point)
-    #
-    # process_nelder_mead(func, st_point)
-    #
-    # process_coordinate_descent(func, st_point)
-
-
 if __name__ == '__main__':
     start_point = (rand(-8, 8), rand(-8, 8))
 
-    # DO NOT DELETE
-    # DO NOT DELETE
-    # DO NOT DELETE
-    # DO NOT DELETE
-    # DO NOT DELETE
-    # DO NOT DELETE
-    # DO NOT DELETE
-    # DO NOT DELETE
-    # DO NOT DELETE
     # process_nelder_mead(functions[3], start_point)  # Sample of work
 
     stat()
-
-    # run(functions[0], start_point)  # TODO

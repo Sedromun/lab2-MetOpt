@@ -21,16 +21,16 @@ def near(x: float, y: float, points: list[tuple[float, float]]) -> bool:
 
 
 functions = [
-    # FuncWrapper(
-    #     f=lambda x, y: -(x ** 2) + y ** 2 + (x ** 4) / 10,
-    #     name="Titties",
-    #     min=-2.5,
-    #     logarithmic=True,
-    #     is_infimum=lambda x, y: near(x, y, [(math.sqrt(5), 0), (0, 0), (-math.sqrt(5), 0)])
-    # ),
+    FuncWrapper(
+        f=lambda x, y: -(x ** 2) + y ** 2 + (x ** 4) / 10,
+        name="Bubble",
+        min=-2.5,
+        logarithmic=True,
+        is_infimum=lambda x, y: near(x, y, [(math.sqrt(5), 0), (0, 0), (-math.sqrt(5), 0)])
+    ),
     FuncWrapper(
         f=lambda x, y: -(x ** 2) - (y ** 2) + (x ** 4) / 10 + (y ** 4) / 20 + y + 2 * x,
-        name="Pig titties",
+        name="Pig bubbles",
         min=-15.671267003711808,
         logarithmic=True,
         is_infimum=lambda x, y: near(x, y, [(-2.6273503214528366, -3.387640767635553),
@@ -59,7 +59,7 @@ functions = [
     ),
     FuncWrapper(
         f=lambda x, y: x**2 - x*y + y**2 + 9*x - 6*y + 20,
-        name="Menya vse doljni ebat",
+        name="Simple-Dimple",
         min=-1,
         logarithmic=True,
         is_infimum=lambda x, y: near(x, y, [(-4, 1)])
