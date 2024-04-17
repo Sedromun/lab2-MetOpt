@@ -9,28 +9,9 @@ from methods_module.d1_methods import *
 from methods_module.coordinate_descent import *
 from random import randint as rand
 from methods_module.my_bfgs import my_bfgs
+from math_module.functions import functions
 
 points = []
-
-
-# function from habr
-def rosen(x, y):
-    return 100.0 * (y - x ** 2.0) ** 2.0 + (1 - x) ** 2.0
-
-
-def rosen_jac(x, y):
-    m1 = -400.0 * x * (y - x ** 2.0) - 2 * (1 - x)
-    m2 = 200 * (y - x ** 2.0)
-    return [m1, m2]
-
-
-def rosen_hess(x, y):
-    m11 = 1200.0 * x ** 2.0 - 400 * y + 2
-    m12 = 0
-    m21 = 0
-    m22 = 200 * y
-    return [[m11, m12],
-            [m21, m22]]
 
 
 def logger(f: Callable[[float, float], float]) -> Callable[[float, float], float]:
@@ -39,6 +20,38 @@ def logger(f: Callable[[float, float], float]) -> Callable[[float, float], float
         return f(x, y)
 
     return foo
+
+
+def process_gradient_descent(func, start):
+    try:
+        x, y = gradient_descent(logger(func.f), start_point=start)
+    except FunctionNonConvergence:
+        print('ERROR start point: ', start)
+    else:
+        print("GRADIENT DESCENT: ", x, y, " Value :=", func.f(x, y))
+        draw(points, func, x, y, title="Gradient Descent")
+
+
+def process_d1_search_gradient(func, start):
+    try:
+        x, y = gradient_descent(logger(func.f), start_point=start, calc_learning_rate=calc_learning_rate)
+    except FunctionNonConvergence:
+        print('ERROR start point: ', start)
+    else:
+        print("GRADIENT DESCENT WITH D1 OPTIMIZATION: ", x, y, " Value :=", func.f(x, y))
+        draw(points, func, x, y, title="Gradient Descent with D1 optimization")
+
+
+def process_coordinate_descent(func, start):
+    x, y = coordinate_descent(logger(func.f), start)
+    print("COORDINATE DESCENT: ", x, y, " Value :=", func.f(x, y))
+    draw(points, func, x, y, title="Coordinate Descent")
+
+
+def process_nelder_mead(func, start):
+    x, y = nelder_mead(logger(func.f), start)
+    print("NELDER-MEAD: ", x, y, " Value :=", func.f(x, y))
+    draw(points, func, x, y, title="Nelder-Mead")
 
 
 def process_newton(func, start):
@@ -69,49 +82,24 @@ def process_d1_search_newton(func, start):
         draw(newton_points, func, x, y, title="Newton's Method with D1 optimization")
 
 
-def process_gradient_descent(func, start):
-    try:
-        x, y = gradient_descent(func.f, start_point=start)
-    except FunctionNonConvergence:
-        print('ERROR start point: ', start)
-    else:
-        print("GRADIENT DESCENT: ", x, y, " Value :=", func.f(x, y))
-        # draw(gradient_points, func, x, y, title="Gradient Descent")
 
-
-def process_d1_search_gradient(func, start):
-    try:
-        gradient_points = gradient_descent(func, start_point=start, calc_learning_rate=calc_learning_rate)
-        x, y = gradient_points[-1]
-    except FunctionNonConvergence:
-        print('ERROR start point: ', start)
-    else:
-        print("GRADIENT DESCENT WITH D1 OPTIMIZATION: ", x, y, " Value :=", func(x, y))
-        draw(gradient_points, func, x, y, title="Gradient Descent with D1 optimization")
-
-
-def process_nelder_mead(func, start):
-    x, y = nelder_mead(logger(func.f), start)
-    print("NELDER-MEAD: ", x, y, " Value :=", func.f(x, y))
-    draw(points, func, x, y, title="Nelder-Mead")
-
-
-def process_newton_cg(func, start, jac, hess):
-    x, y = newton_cg(logger(func.f), start, jac, hess)
-    print("NEWTON-CG: ", x, y, " Value :=", func(x, y))
+def process_newton_cg(func, start):
+    x, y = newton_cg(logger(func.f), start)
+    print("NEWTON-CG: ", x, y, " Value :=", func.f(x, y))
     draw(points, func, x, y, title="Newton-CG")
 
 
-def process_BFSG(func, start, jac):
-    x, y = BFSG(logger(func.f), start, jac)
-    print("BFSG: ", x, y, " Value :=", func(x, y))
+def process_BFSG(func, start):
+    x, y = BFSG(logger(func.f), start)
+    print("BFSG: ", x, y, " Value :=", func.f(x, y))
     draw(points, func, x, y, title="BFSG")
 
 
-def process_coordinate_descent(func, start):
-    x, y, c_points = coordinate_descent(func, start)
-    print("COORDINATE DESCENT: ", x, y, " Value :=", func(x, y))
-    draw(c_points, func, x, y, title="Coordinate Descent")
+def process_my_BFSG(func, start):
+    x, y = my_bfgs(logger(func.f), start)
+    print("BFSG: ", x, y, " Value :=", func.f(x, y))
+    draw(points, func, x, y, title="my BFSG")
+
 
 
 def draw(dots, func, x, y, title: str = ""):
@@ -134,10 +122,22 @@ def stat():
     sub_stat(BFSG, "BFSG")
 
 
+def run(func, st_point):
+    process_gradient_descent(func, st_point)
+    process_d1_search_gradient(func, st_point)
+    process_coordinate_descent(func, st_point)
+    process_nelder_mead(func, start_point)
+
+    # process_newton(func, start_point)
+    # process_d1_search_newton(func, st_point)
+    process_newton_cg(func, st_point)
+    process_BFSG(func, st_point)
+    process_my_BFSG(func, st_point)
+
 
 if __name__ == '__main__':
     start_point = (rand(-8, 8), rand(-8, 8))
 
-    # process_nelder_mead(functions[3], start_point)  # Sample of work
+    # stat()
 
-    stat()
+    run(functions[5], start_point)
