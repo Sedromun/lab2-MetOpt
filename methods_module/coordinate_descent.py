@@ -2,6 +2,8 @@ from config import epsilon
 
 
 def coordinate_descent(f, start_point):
+    points = []
+
     step = 1
     stopped = 0
     x = start_point[0]
@@ -9,6 +11,8 @@ def coordinate_descent(f, start_point):
     current = f(x, y)
 
     while step > epsilon:
+        points.append((x, y))
+
         current_plus = f(x + step, y)
         current_minus = f(x - step, y)
         if current > current_plus:
@@ -28,6 +32,8 @@ def coordinate_descent(f, start_point):
             if step < epsilon:
                 break
 
+        points.append((x, y))
+
         current_plus = f(x, y + step)
         current_minus = f(x, y - step)
         if current > current_plus:
@@ -45,4 +51,4 @@ def coordinate_descent(f, start_point):
             step /= 2
             stopped = 0
 
-    return x, y
+    return x, y, points

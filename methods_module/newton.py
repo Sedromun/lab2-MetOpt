@@ -21,4 +21,4 @@ def newton(func, start_point=None, calc_learning_rate=(lambda x, y, z, t: newton
         points.append(new_point)
         if len(points) > 1000 or abs(points[-1][0]) > 10000000 or abs(points[-1][1]) > 10000000:
             raise FunctionNonConvergence()
-    return points[-1]
+    return points
